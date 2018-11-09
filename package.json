@@ -16,6 +16,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",

@@ -1,0 +1,58 @@
+.flat-button {
+  display: flex;
+  overflow: hidden;
+  margin: 10px;
+  padding: 12px 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 150ms linear;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none !important;
+  text-transform: capitalize;
+  color: #fff;
+  border: 0 none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 5px 10px #e4e4e4; }
+  .flat-button:hover {
+    transition: all 150ms linear;
+    opacity: .85; }
+  .flat-button:active {
+    transition: all 150ms linear;
+    opacity: .75; }
+  .flat-button:focus {
+    outline: 1px dotted #959595;
+    outline-offset: -4px; }
+  .flat-button-regular {
+    color: #202129;
+    background-color: #f2f2f2; }
+    .flat-button-regular:hover {
+      color: #202129;
+      background-color: #e1e2e2;
+      opacity: 1; }
+    .flat-button-regular:active {
+      background-color: #d5d6d6;
+      opacity: 1; }
+  .flat-button-dark {
+    color: #FFFFFF;
+    background: #4b4b4b; }
+    .flat-button-dark:focus {
+      outline: 1px dotted white;
+      outline-offset: -4px; }
+  .flat-button-green {
+    color: #FFFFFF;
+    background: #3dd28d; }
+  .flat-button-blue {
+    color: #FFFFFF;
+    background: #416dea; }
+  .flat-button-salmon {
+    color: #FFFFFF;
+    background: #F32C52; }

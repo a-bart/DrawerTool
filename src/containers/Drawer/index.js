@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { drawerActions } from 'src/core/actions';
 
+import FlatButton from 'src/components/Buttons/Flat';
 import SvgFigure from 'src/components/SvgFigure';
 import './styles.css'
 
@@ -55,7 +56,6 @@ class Drawer extends Component {
 
 		return (
 			<div className='drawer-container'>
-				<h1>Drawer</h1>
 				<svg
 					className='drawer-box'
 					style={{ backgroundColor }}
@@ -67,7 +67,7 @@ class Drawer extends Component {
 						figure => <SvgFigure key={figure.id} figure={figure} strokeWidth={strokeWidth} />
 					)}
 				</svg>
-				<button onClick={this.handleResetDrawer}>reset</button>
+				<FlatButton onClick={this.handleResetDrawer} color='dark'>reset</FlatButton>
 			</div>
 		);
 	}

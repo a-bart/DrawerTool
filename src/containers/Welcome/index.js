@@ -10,7 +10,6 @@ class Welcome extends Component {
 		const { onFileUpload } = this.props;
 		return (
 			<div className='welcome'>
-				<h1>Drawer Tool v1.0</h1>
 				<FileUpload uploadFile={onFileUpload} />
 			</div>
 		);

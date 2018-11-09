@@ -5,6 +5,7 @@ import { drawerActions } from 'src/core/actions';
 import { drawerServices } from 'src/core/services';
 import { fileUtils, validationUtils } from 'src/utils';
 
+import Loading from 'src/components/Loading';
 import Welcome from '../Welcome';
 import Drawer from '../Drawer';
 import './styles.css'
@@ -75,7 +76,7 @@ class Landing extends Component {
 		return (
 			<div className='landing'>
 				{loading ? (
-					<div>loading...</div>
+					<Loading />
 				) : (
 				<React.Fragment>
 					{!!canvas ? (
