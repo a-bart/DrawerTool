@@ -5,12 +5,17 @@ import { drawerActions } from 'src/core/actions';
 import { drawerServices } from 'src/core/services';
 import { fileUtils, validationUtils } from 'src/utils';
 
+import Error from 'src/components/Error';
 import Loading from 'src/components/Loading';
 import Welcome from '../Welcome';
 import Drawer from '../Drawer';
 import './styles.css'
 
 class Landing extends Component {
+	state = {
+		error: null
+	};
+
 	setCanvas = (parsedData) => {
 		const { actions } = this.props;
 
@@ -53,6 +58,7 @@ class Landing extends Component {
 
 	onFileUpload = async (file) => {
 		const { actions } = this.props;
+		this.setState({ error: null });
 
 		actions.startDrawerLoading();
 		try {
@@ -63,18 +69,19 @@ class Landing extends Component {
 			this.setCanvas(parsedData);
 			this.addFigures(parsedData);
 			this.setBucketFill(parsedData);
-		} catch (err) {
-			// todo: display error
-			console.error(err);
+		} catch (error) {
+			this.setState({ error })
 		}
 		actions.stopDrawerLoading();
 	};
 
 	render() {
+		const { error } = this.state;
 		const { loading, canvas } = this.props;
 
 		return (
 			<div className='landing'>
+				{error && <Error err={error} />}
 				{loading ? (
 					<Loading />
 				) : (
