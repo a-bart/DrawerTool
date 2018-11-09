@@ -3,6 +3,18 @@
 Upload drawing instructions in text file and Drawer Tool will make a canvas with a set of figures and bucket fill
 with provided color.
 
+### Set up
+
+start application on port 3000:
+```
+npm start
+```
+
+run tests:
+```
+npm test
+```
+
 ### Instructions
 
 A set of available instructions:
