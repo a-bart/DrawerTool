@@ -1,9 +1,10 @@
 const isFigure = (el) => !!(el && el.parameters && (el.type === 'line' || el.type === 'rectangle'));
-const isPositiveInteger = (num) => Number.isInteger(num) && num > 0;
+const isPositiveInteger = (num) => Number.isInteger(num) && num >= 0;
 const isHex = (color) => {
 	const colorHexRegex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
 	return colorHexRegex.test(color);
 };
+const isNil = (value) => value == null;
 
 const validateDecoratedLine = (decoratedLineArray, lineNumber) => {
 	const baseErrorMessage = `Parser Error: Line ${lineNumber + 1} has wrong structure.`;
@@ -73,7 +74,7 @@ const validateParsedData = (parsedData) => {
 	if (canvasCount === 0) throw new Error('Parser Error: No "Canvas" found');
 	if (canvasCount > 1) throw new Error('Parser Error: cannot have many "Canvas" elements');
 	const canvas = canvasArray[0];
-	if (!(canvas.parameters && canvas.parameters.width && canvas.parameters.height)) {
+	if (!(canvas.parameters && !isNil(canvas.parameters.width) && !isNil(canvas.parameters.height))) {
 		throw new Error('Parser Error: canvas object has wrong structure');
 	}
 	if (!(isPositiveInteger(canvas.parameters.width) && isPositiveInteger(canvas.parameters.height))) {
@@ -93,7 +94,7 @@ const validateParsedData = (parsedData) => {
 
 		if (!(
 			bucketFill.parameters && bucketFill.parameters.color && bucketFill.parameters.point &&
-			bucketFill.parameters.point.x && bucketFill.parameters.point.y
+			!isNil(bucketFill.parameters.point.x) && !isNil(bucketFill.parameters.point.y)
 		)) {
 			throw new Error('Parser Error: "Bucket Fill" object has wrong structure');
 		}
@@ -113,7 +114,7 @@ const validateParsedData = (parsedData) => {
 			if (!(
 				figure.parameters && Array.isArray(figure.parameters.points) &&
 				figure.parameters.points.length > 1 &&
-				figure.parameters.points.every(point => point.x && point.y)
+				figure.parameters.points.every(point => !isNil(point.x) && !isNil(point.y))
 			)) {
 				throw new Error(`Parser Error: figure ${i+1}. "Line" object has wrong structure`);
 			}
