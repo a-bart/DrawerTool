@@ -71,49 +71,49 @@ describe('Validation Utils', () => {
 			const line = ['C', 'jsdkhgf', 'sss', 'sssssdjkf', 'shkdj'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure.`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure.`));
 		});
 		test('should return an error if line with "line" figure has wrong structure', () => {
 			const line = ['l', 'jsdkhgf', 'sss'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure.`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure.`));
 		});
 		test('should return an error if line with "rectangle" figure has wrong structure', () => {
 			const line = ['R', 'jsdkhgf', 'sss'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure.`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure.`));
 		});
 		test('should return an error if line with "bucketfill" action has wrong structure', () => {
 			const line = ['B', 'jsdkhgf', 'sss', '§§§f', 'fff'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure.`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure.`));
 		});
 		test('should return an error if line with "canvas" coordinates are not positive integers', () => {
 			const line = ['C', '-111', 'eee'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure. Expected positive integers in coordinates`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure. Expected positive integers in coordinates`));
 		});
 		test('should return an error if line with "line" coordinates are not positive integers', () => {
 			const line = ['L', '-111', 'eee', 'w3w', '1qw'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure. Expected positive integers in coordinates`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure. Expected positive integers in coordinates`));
 		});
 		test('should return an error if line with "bucketfill" coordinates are not positive integers', () => {
 			const line = ['b', '-111', 'eee', 'w3w'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure. Expected positive integers in coordinates`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure. Expected positive integers in coordinates`));
 		});
 		test('should return an error if line with "bucketfill" color is not in hex format', () => {
 			const line = ['b', '10', '20', 'q1'];
 			const lineNumber = 1;
 			expect(() => validationUtils.validateDecoratedLine(line, lineNumber))
-				.toThrow(Error(`Parser Error: Line ${lineNumber} has wrong structure. Color should be in hex format`));
+				.toThrow(Error(`Parser Error: Line ${lineNumber + 1} has wrong structure. Color should be in hex format`));
 		});
 	});
 

@@ -6,7 +6,7 @@ const isHex = (color) => {
 };
 
 const validateDecoratedLine = (decoratedLineArray, lineNumber) => {
-	const baseErrorMessage = `Parser Error: Line ${lineNumber} has wrong structure.`;
+	const baseErrorMessage = `Parser Error: Line ${lineNumber + 1} has wrong structure.`;
 	const type = decoratedLineArray[0].toUpperCase();
 
 	switch (type) {
