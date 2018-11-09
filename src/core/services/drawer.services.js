@@ -1,3 +1,5 @@
+import { validationUtils } from '../../utils';
+
 const createCanvasMatrix = (x, y) => {
 	const matrix = [];
 
@@ -11,12 +13,8 @@ const createCanvasMatrix = (x, y) => {
 	return matrix;
 };
 
-const isFigure = (element) => {
-	return element && element.parameters && (element.type === 'line' || element.type === 'rectangle');
-};
-
 const getLinePosition = figure => {
-	if (isFigure(figure) && figure.parameters.points) {
+	if (validationUtils.isFigure(figure) && figure.parameters.points) {
 		if (figure.parameters.points[0].y === figure.parameters.points[1].y) {
 			return 'horizontal';
 		}
@@ -27,7 +25,7 @@ const getLinePosition = figure => {
 };
 
 const getLineDirection = figure => {
-	if (isFigure(figure) && figure.parameters.points) {
+	if (validationUtils.isFigure(figure) && figure.parameters.points) {
 		if (
 			figure.parameters.points[0].x <= figure.parameters.points[1].x ||
 			figure.parameters.points[0].y >= figure.parameters.points[1].y
@@ -44,7 +42,7 @@ const getLineDirection = figure => {
 };
 
 const getRectangleSizes = figure => {
-	if (isFigure(figure) && figure.parameters.corners) {
+	if (validationUtils.isFigure(figure) && figure.parameters.corners) {
 		return {
 			width: figure.parameters.corners.lrc.x - figure.parameters.corners.ulc.x,
 			height: figure.parameters.corners.lrc.y - figure.parameters.corners.ulc.y,
@@ -70,7 +68,7 @@ const getAdditionalFigureParams = figure => {
 };
 
 const getFigureMatrixPoints = (figure) => {
-	if (isFigure(figure)) {
+	if (validationUtils.isFigure(figure)) {
 		const matrixPoints = [];
 
 		if (figure.type === 'line') {
@@ -104,8 +102,8 @@ const getFigureMatrixPoints = (figure) => {
 			}
 		}
 		if (figure.type === 'rectangle') {
-			for (let x = figure.parameters.corners.ulc.x; x <= figure.parameters.corners.lrc.x; x++) {
-				for (let y = figure.parameters.corners.ulc.y; y <= figure.parameters.corners.lrc.y; y++) {
+			for (let y = figure.parameters.corners.ulc.y; y <= figure.parameters.corners.lrc.y; y++) {
+				for (let x = figure.parameters.corners.ulc.x; x <= figure.parameters.corners.lrc.x; x++) {
 					matrixPoints.push([x, y]);
 				}
 			}
@@ -115,8 +113,9 @@ const getFigureMatrixPoints = (figure) => {
 	}
 };
 
-const parseLine = line => {
+const parseLine = (line, number) => {
 	const decoratedLineArray = line.replace(/\s+/g,' ').trim().split(' ');
+	validationUtils.validateDecoratedLine(decoratedLineArray, number);
 	const type = decoratedLineArray[0].toUpperCase();
 
 	let figure = null;
@@ -196,23 +195,14 @@ const parseLine = line => {
 };
 
 const parseInputFile = (content) => {
+	if (!content) {
+		throw new TypeError('Parser Error: No content provided, skipping');
+	}
 	const lines = content.split('\n');
 	return lines.map(parseLine);
-};
-
-const validateParsedData = (parsedData) => {
-	if (!(parsedData && Array.isArray(parsedData) && parsedData.length)) {
-		throw new Error('Parser Error: No data found');
-	}
-
-	if (!parsedData.some(el => el.type === 'canvas')) {
-		throw new Error('Parser Error: No canvas found');
-	}
 };
 
 export const drawerServices = {
 	createCanvasMatrix,
 	parseInputFile,
-	validateParsedData,
-	isFigure
 };

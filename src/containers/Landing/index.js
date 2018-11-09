@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { drawerActions } from 'src/core/actions';
 import { drawerServices } from 'src/core/services';
-import { fileUtils } from 'src/utils';
+import { fileUtils, validationUtils } from 'src/utils';
 
 import Welcome from '../Welcome';
 import Drawer from '../Drawer';
@@ -21,7 +21,7 @@ class Landing extends Component {
 	addFigures = (parsedData) => {
 		const { actions } = this.props;
 
-		const figures = parsedData.filter(drawerServices.isFigure);
+		const figures = parsedData.filter(validationUtils.isFigure);
 		if (figures.length) {
 			figures.forEach((figure, index) => {
 				figure.id = index + 1;
@@ -34,11 +34,12 @@ class Landing extends Component {
 	setBucketFill = (parsedData) => {
 		const { actions, matrix } = this.props;
 
+		// suppose parsed data contains only one "bucketfill" command
 		const bucketFill = parsedData.find(el => el.type === 'bucketfill');
 		if (bucketFill) {
 			const matrixPoint = matrix[bucketFill.parameters.point.x][bucketFill.parameters.point.y];
 			if (matrixPoint && matrixPoint.figureIdStack && matrixPoint.figureIdStack.length) {
-				// set color only for last item in stack
+				// set color only for last item in matrix cell stack
 				actions.setFigureColor(
 					matrixPoint.figureIdStack[matrixPoint.figureIdStack.length - 1],
 					bucketFill.parameters.color
@@ -56,14 +57,14 @@ class Landing extends Component {
 		try {
 			const content = await fileUtils.uploadFile(file);
 			const parsedData = drawerServices.parseInputFile(content);
-			drawerServices.validateParsedData(parsedData);
+			validationUtils.validateParsedData(parsedData);
 
 			this.setCanvas(parsedData);
 			this.addFigures(parsedData);
 			this.setBucketFill(parsedData);
 		} catch (err) {
 			// todo: display error
-			console.error(err.message);
+			console.error(err);
 		}
 		actions.stopDrawerLoading();
 	};
